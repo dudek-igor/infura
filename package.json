@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/dudek-igor/infura#readme",
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4"
   }
 }
