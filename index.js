@@ -33,3 +33,33 @@ InfuraProvider.getBlock()
   .catch((error) => {
     console.error(error);
   });
+/**
+ * @example Web3 example
+ */
+const { Web3 } = require("web3");
+const web3Provider = new Web3.providers.HttpProvider(ETH_MAINNET);
+const web3 = new Web3(web3Provider);
+
+web3.eth
+  .getBlockNumber()
+  .then((result) => {
+    console.log("Latest Ethereum Block is ", result);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+/**
+ * @example Infura Gas Fee
+ */
+const chainId = 1; // https://docs.metamask.io/services/get-started/endpoints/#gas-api
+
+axios
+  .get(
+    `https://gas.api.infura.io/v3/${process.env.INFURA_API_KEY}/networks/${chainId}/suggestedGasFees`
+  )
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
