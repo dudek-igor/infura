@@ -63,3 +63,59 @@ axios
   .catch((error) => {
     console.error(error);
   });
+/**
+ * @example Archive Nodes
+ */
+
+const infuraProviderV2 = new ethers.InfuraProvider(
+  "mainnet",
+  process.env.INFURA_API_KEY
+);
+
+const main = async () => {
+  const userAddress = "0x0000000000000000000000000000000000000000";
+  const startBlock = 11565019;
+  const endBlock = 13916165;
+
+  // Get current balance
+  const currentBalance = await infuraProviderV2
+    .getBalance(userAddress)
+    .then((bal) => ethers.formatEther(bal));
+
+  // Get balance from the start of 2021
+  const startBalance = await infuraProviderV2
+    .getBalance(userAddress, startBlock)
+    .then((bal) => ethers.formatEther(bal));
+
+  // Get balance from the end of 2021
+  const endBalance = await infuraProviderV2
+    .getBalance(userAddress, endBlock)
+    .then((bal) => ethers.formatEther(bal));
+
+  // Get number of transactions for start of year
+  const startTxnCount = await infuraProviderV2.getTransactionCount(
+    userAddress,
+    startBlock
+  );
+
+  // Get number of transactions for end of year
+  const endTxnCount = await infuraProviderV2.getTransactionCount(
+    userAddress,
+    endBlock
+  );
+
+  // Difference between start and end balances
+  const diffBal = endBalance - startBalance;
+
+  // Difference between start and end transaction counts
+  const diffTxns = endTxnCount - startTxnCount;
+
+  console.log("User:", userAddress);
+  console.log("Current ETH:", currentBalance);
+  console.log("Start of 2021 bal: ", startBalance);
+  console.log("End of 2021 bal: ", endBalance);
+  console.log("Bal Diff:", diffBal);
+  console.log("Num Of Transactions:", diffTxns);
+};
+
+main();
